@@ -6,14 +6,14 @@ import { container } from "tsyringe";
 import { GetProductsUseCase } from "@/application/usecases/Product/GetProductsUseCase";
 
 // Server-side rendering to fetch products at request time
-export const getServerSideProps: GetServerSideProps = async () => {
-  const useCase = container.resolve(GetProductsUseCase);
-  const products = await useCase.execute();
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const useCase = container.resolve(GetProductsUseCase);
+//   const products = await useCase.execute();
 
-  return {
-    props: { products },
-  };
-};
+//   return {
+//     props: { products },
+//   };
+// };
 
 
 export default function Home() {

@@ -2,18 +2,19 @@
 import { useGetProducts } from "@/presentation/hooks/useGetProducts";
 
 export function ProductList() {
-  const { data: products, isLoading, error } = useGetProducts();
+  //   const { data: products, isLoading, error } = useGetProducts();
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>UI Product</p>;
+  //   if (isLoading) return <p>Loading...</p>;
+  //   if (error) return <p>UI Product</p>;
 
   return (
     <ul>
-      {products?.map(p => (
+      {/* {products?.map(p => (
         <li key={p.id}>
           {p.title} — ${p.price}
         </li>
-      ))}
+      ))} */}
+      <li>Index product page</li>
     </ul>
   );
 }
