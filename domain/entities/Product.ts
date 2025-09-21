@@ -1,9 +1,9 @@
 export type Product = {
   id: string;
   title: string;
-  description?: string;
+  sku: string;
+  description: string;
   price: number;
-  image?: string;
-  sku?: string;
-  category?: string;
+  stock: number;
+  in_stock: boolean;
 };
