@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs", // ✅ force CJS for Jest
+    "moduleResolution": "node", // ✅ classic Node resolution
+    "jsx": "react-jsx",
+    "types": ["jest", "@testing-library/jest-dom"]
+  }
+}
