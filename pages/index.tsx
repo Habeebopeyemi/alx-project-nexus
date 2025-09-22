@@ -1,5 +1,5 @@
 import Image from "next/image";
-import HERO from "@/public/assets/images/svgs/hero.svg";
+import HERO from "@/public/assets/images/Iphone_bg_laptop.jpg";
 import { ProductList } from "@/presentation/components/product/ProductList";
 import { GetServerSideProps } from "next";
 import { container } from "tsyringe";

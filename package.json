@@ -12,13 +12,17 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.0.1",
+    "@fortawesome/react-fontawesome": "^3.0.2",
     "@reduxjs/toolkit": "^2.8.2",
     "@types/react-redux": "^7.1.34",
+    "antd": "^5.27.4",
     "msw": "^2.11.2",
     "next": "15.3.5",
     "react": "^19.0.0",
     "react-datepicker": "^8.4.0",
     "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
     "react-redux": "^9.2.0",
     "redux": "^5.0.1",
     "reflect-metadata": "^0.2.2",

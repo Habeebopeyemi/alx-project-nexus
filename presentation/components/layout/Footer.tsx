@@ -1,6 +1,6 @@
 import React from "react";
 import { FooterData, PolicyData } from "@/constants";
-import LOGO from "@/public/assets/images/svgs/alx.svg";
+import LOGO from "@/public/assets/images/svgs/Logo.svg";
 import Image from "next/image";
 
 const Footer: React.FC = () => {
