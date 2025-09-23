@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^2.8.2",
     "@types/react-redux": "^7.1.34",
     "antd": "^5.27.4",
+    "framer-motion": "^12.23.19",
     "msw": "^2.11.2",
     "next": "15.3.5",
     "react": "^19.0.0",

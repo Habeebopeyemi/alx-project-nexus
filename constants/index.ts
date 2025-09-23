@@ -1,53 +1,40 @@
-import {
-  AccommodationTypes,
-  FooterProps,
-  PolicyProps,
-  PropertyProps,
-} from "@/domain/entities";
+import { FooterProps, PolicyProps } from "@/domain/entities";
 
 const ASSETPATH = "/assets/images/svgs";
 
-
 export const FooterData: FooterProps[] = [
   {
-    title: "Explore",
+    title: "Services",
     description: "",
     links: [
-      { name: "Apartments in Dubai", href: "#" },
-      { name: "Hotels in New York", href: "#" },
-      { name: "Villa in Spain", href: "#" },
-      { name: "Mansion in Indonesia", href: "#" },
+      { name: "Bonus program", href: "#" },
+      { name: "Gift cards", href: "#" },
+      { name: "Credit and payment", href: "#" },
+      { name: "Service contracts", href: "#" },
+      { name: "Non-cash account", href: "#" },
+      { name: "Payment", href: "#" },
     ],
   },
   {
-    title: "Company",
+    title: "Assistance to the buyer",
     description: "",
     links: [
-      { name: "About us", href: "#" },
-      { name: "Blog", href: "#" },
-      { name: "Career", href: "#" },
-      { name: "Customers", href: "#" },
-      { name: "Brand", href: "#" },
-    ],
-  },
-  {
-    title: "Help",
-    description: "",
-    links: [
-      { name: "Support", href: "#" },
-      { name: "Cancel Booking", href: "#" },
-      { name: "Refunds Process", href: "#" },
+      { name: "Find an order", href: "#" },
+      { name: "Terms of delivery", href: "#" },
+      { name: "Exchange and return of goods", href: "#" },
+      { name: "Guarantee", href: "#" },
+      { name: "Frequently asked questions", href: "#" },
+      { name: "Terms of use of the site", href: "#" },
     ],
   },
 ];
 
 export const PolicyData: PolicyProps = {
-  description:
-    "Some hotel requires you to cancel more than 24 hours before check-in. Details here",
+  description: "",
   links: [
-    { name: "Terms of Service", href: "#" },
-    { name: "Policy Service", href: "#" },
-    { name: "Cookie Policy", href: "#" },
-    { name: "Partners", href: "#" },
+    { name: `${ASSETPATH}/Twitter.svg`, href: "#" },
+    { name: `${ASSETPATH}/Facebook.svg`, href: "#" },
+    { name: `${ASSETPATH}/Tiktok.svg`, href: "#" },
+    { name: `${ASSETPATH}/Instagram.svg`, href: "#" },
   ],
 };
