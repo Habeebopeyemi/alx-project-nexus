@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}>
-      <div className="w-full max-w-[1100px] mx-auto px-5">
+      <div className="w-full max-w-[1100px] mx-auto pt-5 px-5">
         <div className="md:flex md:gap-6">
           {/* Logo & Description */}
           <motion.div

@@ -1,7 +1,5 @@
 export interface CardProps {}
 
-export interface ButtonProps {}
-
 export interface Address {
   state: string;
   city: string;
@@ -45,4 +43,14 @@ export interface FooterProps {
 export interface PolicyProps {
   description: string;
   links: { name: string; href: string }[];
+}
+
+export interface ButtonProps {
+  label: string;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary" | "outline";
+  size?: "sm" | "md" | "lg";
+  disabled?: boolean;
+  className?: string;
 }

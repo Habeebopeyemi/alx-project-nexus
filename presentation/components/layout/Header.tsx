@@ -22,7 +22,7 @@ const Header: React.FC = () => {
   }, [width]);
 
   return (
-    <header className="w-full absolute z-10 top-0 left-0 bg-white rounded-md shadow-md">
+    <header className="w-full absolute z-10 top-0 left-0 bg-white shadow-md">
       <nav className="md:w-[90%] md:flex items-center mx-auto max-w-[1200px] rounded-md">
         {/* Logo + Hamburger */}
         <div className="w-full flex justify-between p-4 lg:basis-[15%] lg:justify-center rounded-md">
