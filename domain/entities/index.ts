@@ -1,3 +1,6 @@
+import { IconType } from "react-icons";
+import { StaticImageData } from "next/image";
+
 export interface CardProps {}
 
 export interface Address {
@@ -53,4 +56,15 @@ export interface ButtonProps {
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
   className?: string;
+}
+
+export interface ProductCardProps {
+  image: StaticImageData | string; // can handle Next.js static imports or URLs
+  title: string;
+  price: string | number;
+  buttonLabel?: string;
+  buttonLink?: string;
+  showFavorite?: boolean;
+  FavoriteIcon?: IconType; // allows passing custom icons (e.g., AiFillHeart)
+  className?: string; // extra styles for flexibility
 }

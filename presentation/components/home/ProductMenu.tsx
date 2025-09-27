@@ -1,43 +1,37 @@
 import React, { useState } from "react";
-import type { MenuProps } from "antd";
-import { Menu } from "antd";
+import { Tabs } from "antd";
+import type { TabsProps } from "antd";
+import Arrival from "./tabs/Arrival";
+import BestSeller from "./tabs/BestSeller";
+import Featured from "./tabs/Featured";
 
-type MenuItem = Required<MenuProps>["items"][number];
+const onChange = (key: string) => {
+  console.log(key);
+};
 
-const items: MenuItem[] = [
+const items: TabsProps["items"] = [
   {
+    key: "1",
     label: "New Arrival",
-    key: "arrival",
+    children: <Arrival />,
   },
   {
+    key: "2",
     label: "Bestseller",
-    key: "seller",
+    children: <BestSeller />,
   },
   {
-    key: "products",
-    label: (
-      <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-        Featured Products
-      </a>
-    ),
+    key: "3",
+    label: "Featured Products",
+    children: <Featured />,
   },
 ];
 
 const ProductMenu = () => {
-  const [current, setCurrent] = useState("mail");
-
-  const onClick: MenuProps["onClick"] = e => {
-    console.log("click ", e);
-    setCurrent(e.key);
-  };
-
   return (
-    <Menu
-      onClick={onClick}
-      selectedKeys={[current]}
-      mode="horizontal"
-      items={items}
-    />
+    <div className="max-w-[300px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1024px] mx-auto">
+      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+    </div>
   );
 };
 
