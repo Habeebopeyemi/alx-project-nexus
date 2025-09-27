@@ -6,4 +6,5 @@ export type Product = {
   price: number;
   stock: number;
   in_stock: boolean;
+  isLiked?: boolean;
 };

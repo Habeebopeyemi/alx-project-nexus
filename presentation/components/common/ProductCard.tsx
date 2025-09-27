@@ -22,6 +22,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <Image
           src={image}
           alt={title}
+          width={120}
+          height={120}
           className="w-[120px] h-auto mx-auto object-cover"
         />
       </div>
@@ -42,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       {/* Favorite Icon */}
       {showFavorite && FavoriteIcon && (
         <div className="absolute top-2 right-2">
-          <FavoriteIcon className="bg-transparent text-2xl text-red-600 cursor-pointer" />
+          <FavoriteIcon className="bg-red text-2xl text-red-500 cursor-pointer" />
         </div>
       )}
     </div>
