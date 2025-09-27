@@ -1,7 +1,7 @@
 import React from 'react'
 import ProductCard from "@/presentation/components/common/ProductCard";
 import { AiFillHeart } from "react-icons/ai";
-import IPHONE_14_PRO_HASH from "@/public/assets/images/Iphone_14_pro_hash.jpg";
+import IPHONE_14_PRO_HASH from "@/public/assets/images/Iphone_14_pro_hash.png";
 
 const BestSeller = () => {
   return (

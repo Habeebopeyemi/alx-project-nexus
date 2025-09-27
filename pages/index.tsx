@@ -67,6 +67,7 @@ export default function Home() {
               <Image
                 src={isMobile ? HEROMOBILE : HEROLAPTOP}
                 alt="hero image"
+                width={500}
                 className="w-full max-w-[500px] max-h-[500px] object-cover"
               />
             </motion.div>
