@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import AddressCard from "./AddressCard";
-import AddressModal from "./AddressModal";
+import AddressCard from "./address/AddressCard";
+import AddressModal from "./address/AddressModal";
 
 const Address = () => {
   const [addresses, setAddresses] = useState([

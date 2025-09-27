@@ -95,3 +95,22 @@ export interface AddressModalProps {
   onClose: () => void;
   onSave: (data: AddressFormData) => void;
 }
+
+export type ShippingOptionProps = {
+  id: string;
+  label: string;
+  description: string;
+  date?: string;
+  selected: boolean;
+  onSelect: (id: string) => void;
+};
+
+export type ShippingScheduleOptionProps = {
+  id: string;
+  label: string;
+  description: string;
+  selected: boolean;
+  onSelect: (id: string) => void;
+  scheduleDate: Date | null;
+  onDateChange: (date: Date | null) => void;
+};
