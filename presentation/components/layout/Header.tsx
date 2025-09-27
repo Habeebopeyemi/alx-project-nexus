@@ -1,94 +1,95 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import SUITECASEICON from "@/public/assets/images/svgs/case.svg";
-import SEARCHICON from "@/public/assets/images/svgs/Magnifer.svg";
-import PROFILE from "@/public/assets/images/svgs/profile.svg";
-import LOGO from "@/public/assets/images/svgs/alx.svg";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import LOGO from "@/public/assets/images/svgs/Logo.svg";
+import SEARCH from "@/public/assets/images/svgs/search.svg";
+import FAV from "@/public/assets/images/svgs/Favorites.svg";
+import CART from "@/public/assets/images/svgs/Cart.svg";
+import USER from "@/public/assets/images/svgs/User.svg";
+import { useScreenWidth } from "@/presentation/hooks/useScreenWidth";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header: React.FC = () => {
-  const [checkinDate, setCheckinDate] = useState<Date | null>(null);
-  const [checkoutDate, setCheckoutDate] = useState<Date | null>(null);
+  const width = useScreenWidth();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (width >= 1024) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  }, [width]);
 
   return (
-    <header>
-      <div className="w-full flex justify-center gap-3 p-3 bg-[#34967C]">
-        <span>
-          <Image src={SUITECASEICON} alt="suite case" />
-        </span>
-        Overseas trips? get the latest information on travel guides
-        <span className="bg-[#161117] px-2 border-0 rounded-full">
-          More Info
-        </span>
-      </div>
-      <div className="w-full flex justify-between items-center px-5 py-2 bg-white border-b-1 border-gray-300">
-        <div className="hidden sm:block">
-          <Image src={LOGO} alt="company logo" />
-        </div>
-        <div className="basis-[85%] gap-2 sm:basis-[60%] max-w-2xl flex items-center sm:gap-3 border-1 border-gray-200 rounded-full">
-          <div className="w-full">
-            <form className="w-full flex justify-between items-center gap-2 py-1 px-2">
-              <div className="basis-[90%] grid grid-cols-4 gap-2">
-                <div className="pl-2">
-                  <label className="text-black text-[12px]">Location</label>
-                  <input
-                    type="text"
-                    placeholder="Search for destination"
-                    className="text-gray-400 text-[12px] focus:outline-none"
-                  />
-                </div>
-                <div className="text-center before:content-['|'] before:text-gray-400 before:px-2">
-                  <label className="text-black text-[12px]">Check in</label>
-                  <DatePicker
-                    selected={checkinDate}
-                    onChange={(date: Date | null) => setCheckinDate(date)}
-                    placeholderText="Add date"
-                    dateFormat="yyyy-MM-dd"
-                    className="text-[12px] text-center text-black bg-transparent border-gray-300 placeholder:text-gray-400 focus:outline-none"
-                  />
-                </div>
-                <div className="text-center before:content-['|'] before:text-gray-400 before:px-2">
-                  <label className="text-black text-[12px]">Check out</label>
-                  <DatePicker
-                    selected={checkoutDate}
-                    onChange={(date: Date | null) => setCheckoutDate(date)}
-                    placeholderText="Add date"
-                    dateFormat="yyyy-MM-dd"
-                    className="text-[12px] text-center text-black bg-transparent border-gray-300 rounded-md w-full placeholder:text-gray-400 focus:outline-none"
-                  />
-                </div>
-                <div className="text-center before:content-['|'] before:text-gray-400 before:px-2">
-                  <label className="text-black text-[12px]">People</label>
-                  <input
-                    type="text"
-                    placeholder="Add guest"
-                    className="text-gray-400 text-center text-[12px] focus:outline-none"
-                  />
-                </div>
-              </div>
-              <div className="bg-orange-300 rounded-[50%] p-2">
-                <button type="submit" className="block">
-                  <Image src={SEARCHICON} alt="search icon" />
-                </button>
-              </div>
-            </form>
+    <header className="w-full absolute z-10 top-0 left-0 bg-white shadow-md">
+      <nav className="md:w-[90%] md:flex items-center mx-auto max-w-[1200px] rounded-md">
+        {/* Logo + Hamburger */}
+        <div className="w-full flex justify-between p-4 lg:basis-[15%] lg:justify-center rounded-md">
+          <div>
+            <Image src={LOGO} alt="LOGO" priority />
           </div>
-        </div>
-        <div className="md:hidden border-[0.5px] border-[#34967C] bg-[#34967C] rounded-[50%]">
-          <button type="submit" className="block">
-            <Image src={PROFILE} alt="search icon" />
+          <button
+            onClick={() => setOpen(prev => !prev)}
+            className="lg:hidden"
+            aria-label="Toggle navigation">
+            <RxHamburgerMenu className="text-2xl text-gray-600" />
           </button>
         </div>
-        <div className="hidden md:flex justify-between items-center sm:basis-[20%] gap-2">
-          <button className="basis-[50%] p-3 bg-[#34967C] border-[0.5px] rounded-full">
-            Sign in
-          </button>
-          <button className="basis-[50%] p-3 text-black border-gray-300 border-[0.5px] rounded-full">
-            Sign up
-          </button>
-        </div>
-      </div>
+
+        {/* AnimatePresence handles mounting/unmounting animations */}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              key="menu"
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="w-[95%] mx-auto lg:basis-[85%] lg:flex gap-3">
+              {/* Search */}
+              <motion.div
+                whileFocus={{ scale: 1.02 }}
+                className="w-full max-w-[60%] flex gap-2 mx-auto lg:basis-[30%] bg-gray-100 border-[.75px] rounded-xl my-4">
+                <div className="p-3">
+                  <Image src={SEARCH} alt="search icon" priority />
+                </div>
+                <input
+                  type="text"
+                  placeholder="search"
+                  className="w-full p-2 outline-0 text-sm text-black focus:bg-white focus:text-gray-500 rounded-tr-xl rounded-br-xl"
+                />
+              </motion.div>
+
+              {/* Links */}
+              <ul className="w-full max-w-[60%] mx-auto flex justify-between lg:basis-[40%] p-2 text-gray-500 rounded-md my-4">
+                {["Home", "About", "Contact Us", "Blog"].map(item => (
+                  <motion.li
+                    key={item}
+                    whileHover={{ scale: 1.1, color: "#000" }}
+                    whileTap={{ scale: 0.95 }}
+                    className="cursor-pointer">
+                    {item}
+                  </motion.li>
+                ))}
+              </ul>
+
+              {/* Icons */}
+              <ul className="max-w-[50%] mx-auto flex items-center justify-center gap-3 lg:basis-[20%] py-2 rounded-md my-4">
+                {[FAV, CART, USER].map((icon, idx) => (
+                  <motion.li
+                    key={idx}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="basis-[20%] cursor-pointer">
+                    <Image src={icon} alt="icon" width={25} />
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
     </header>
   );
 };
