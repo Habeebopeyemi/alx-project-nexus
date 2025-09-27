@@ -68,3 +68,30 @@ export interface ProductCardProps {
   FavoriteIcon?: IconType; // allows passing custom icons (e.g., AiFillHeart)
   className?: string; // extra styles for flexibility
 }
+
+export interface AddressCardProps {
+  id: string;
+  label: string; // e.g. "HOME", "WORK"
+  name: string; // e.g. "2118 Thornridge"
+  address: string; // e.g. "2118 Thornridge Cir. Syracuse, Connecticut 35624"
+  phone: string; // e.g. "(209) 555-0104"
+  selected?: boolean; // for radio selection
+  onSelect?: (id: string) => void;
+  onEdit?: (id: string) => void;
+  onDelete?: (id: string) => void;
+}
+
+export interface AddressFormData {
+  id?: string;
+  label: string;
+  name: string;
+  address: string;
+  phone: string;
+}
+
+export interface AddressModalProps {
+  isOpen: boolean;
+  initialData?: AddressFormData | null;
+  onClose: () => void;
+  onSave: (data: AddressFormData) => void;
+}

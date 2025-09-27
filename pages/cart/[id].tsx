@@ -203,6 +203,9 @@ const Cart = () => {
               variant="primary"
               size="md"
               className="border-none rounded-md w-full mt-6"
+              onClick={() =>
+                router.push(`/order/${id}`, undefined, { shallow: false })
+              }
             />
           </motion.div>
         </div>

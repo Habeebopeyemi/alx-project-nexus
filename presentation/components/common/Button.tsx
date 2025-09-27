@@ -17,7 +17,8 @@ const Button: React.FC<ButtonProps> = ({
     primary: "bg-black text-white hover:bg-gray-800 border-2 border-black",
     secondary:
       "bg-gray-200 text-black hover:bg-gray-300 border-2 border-gray-200",
-    outline: "bg-transparent text-black border-2 border-black hover:bg-black",
+    outline:
+      "bg-transparent text-black border-2 border-black hover:bg-black hover:text-white",
   };
 
   const sizeStyles: Record<typeof size, string> = {
