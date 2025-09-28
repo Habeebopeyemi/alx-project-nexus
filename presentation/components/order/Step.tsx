@@ -1,10 +1,14 @@
 import React, { useState, ReactNode } from "react";
-import { Button, message } from "antd";
+import { message } from "antd";
 import {
   AiOutlineHome,
   AiOutlineCar,
   AiOutlineCreditCard,
 } from "react-icons/ai";
+import Address from "./Address";
+import Shipping from "./Shipping";
+import Payment from "./Payment";
+import Button from "../common/Button";
 
 interface Step {
   title: string | ReactNode;
@@ -24,7 +28,7 @@ const CheckoutSteps: React.FC = () => {
   const prev = () => setCurrent(prev => prev - 1);
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-[1024px] mx-auto my-5 py-5 px-15">
       {/* Stepper */}
       <div className="flex justify-between mb-8">
         {steps.map((step, index) => {
@@ -44,26 +48,34 @@ const CheckoutSteps: React.FC = () => {
       </div>
 
       {/* Step content */}
-      <div className="p-6 border border-gray-300 rounded-lg text-center min-h-[140px]">
-        <h2 className="text-lg font-medium">{steps[current].title}</h2>
-        <p className="text-gray-500 mt-2">
-          Content for {steps[current].title} step
-        </p>
-      </div>
+      {steps[current].title === "Address" && <Address />}
+      {steps[current].title === "Shipping" && <Shipping />}
+      {steps[current].title === "Payment" && <Payment />}
 
       {/* Controls */}
-      <div className="mt-6 flex justify-center gap-3">
-        {current > 0 && <Button onClick={prev}>Previous</Button>}
+      <div className="mt-6 flex justify-center md:justify-end gap-3 md:mt-[-60px] mr-9">
+        {current > 0 && (
+          <Button
+            label="Back"
+            variant="outline"
+            className="basis-[30%] md:basis-[21%] border-[.25px]"
+            onClick={prev}
+          />
+        )}
         {current < steps.length - 1 ? (
-          <Button type="primary" onClick={next}>
-            Next
-          </Button>
+          <Button
+            label=" Next"
+            variant="primary"
+            className="basis-[30%] md:basis-[21%]"
+            onClick={next}
+          />
         ) : (
           <Button
-            type="primary"
-            onClick={() => message.success("Checkout complete!")}>
-            Done
-          </Button>
+            label="Pay"
+            variant="primary"
+            className="basis-[30%] md:basis-[21%]"
+            onClick={() => message.success("Checkout complete!")}
+          />
         )}
       </div>
     </div>
