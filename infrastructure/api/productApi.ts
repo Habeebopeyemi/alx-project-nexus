@@ -3,10 +3,22 @@ import { Product } from "../../domain/entities/Product";
 import { ProductDTO } from "@/data/models/ProductDTO";
 import { productDtoToEntity } from "@/data/mappers/productMapper";
 import { LoginCredentials, LoginResponse } from "@/domain/entities/Auth";
+import { GetAllProductsResponse } from "@/data/models/ProductDTO";
 
 export const productApi = createApi({
   reducerPath: "productApi",
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_URL }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "/api",
+    prepareHeaders: headers => {
+      if (typeof window !== "undefined") {
+        const token = sessionStorage.getItem("auth-token");
+        if (token) {
+          headers.set("Authorization", `Bearer ${token}`);
+        }
+      }
+      return headers;
+    },
+  }),
   tagTypes: ["Products"],
   endpoints: builder => ({
     login: builder.mutation<LoginResponse, LoginCredentials>({
@@ -14,12 +26,14 @@ export const productApi = createApi({
         url: process.env.NEXT_PUBLIC_LOGIN as string,
         method: "POST",
         body: payload,
-        headers: { "Content-type": "application" },
+        headers: { "Content-type": "application/json" },
       }),
     }),
-    getProducts: builder.query<Product[], void>({
-      query: () => "/products",
-      transformResponse: (dtos: ProductDTO[]) => dtos.map(productDtoToEntity),
+    getProducts: builder.query<GetAllProductsResponse, void>({
+      query: () => ({
+        url: "/products/?category=Mobile%20Accessories&in_stock=true&page=1",
+      }),
+      //transformResponse: (dtos: ProductDTO[]) => dtos.map(productDtoToEntity),
       providesTags: ["Products"],
     }),
     getProductById: builder.query<Product, string>({
