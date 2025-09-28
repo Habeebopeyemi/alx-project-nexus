@@ -1,7 +1,6 @@
 import React from "react";
 import ProductCard from "@/presentation/components/common/ProductCard";
 import { AiFillHeart } from "react-icons/ai";
-import { products } from "@/constants/index";
 import { useGetProductsQuery } from "@/infrastructure/api/productApi";
 const ASSETPATH = "/assets/images";
 

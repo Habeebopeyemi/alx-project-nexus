@@ -1,5 +1,4 @@
 "use client";
-import { useGetProducts } from "@/presentation/hooks/useGetProducts";
 
 export function ProductList() {
   //   const { data: products, isLoading, error } = useGetProducts();
