@@ -4,6 +4,7 @@ import { ProductDTO } from "@/data/models/ProductDTO";
 import { productDtoToEntity } from "@/data/mappers/productMapper";
 import { LoginCredentials, LoginResponse } from "@/domain/entities/Auth";
 import { GetAllProductsResponse } from "@/data/models/ProductDTO";
+import { GetCartItemsResponse } from "@/data/models/CartDTO";
 
 export const productApi = createApi({
   reducerPath: "productApi",
@@ -36,6 +37,13 @@ export const productApi = createApi({
       //transformResponse: (dtos: ProductDTO[]) => dtos.map(productDtoToEntity),
       providesTags: ["Products"],
     }),
+    getCarts: builder.query<GetCartItemsResponse, void>({
+      query: () => ({
+        url: "/cart/items?page=1",
+      }),
+      //transformResponse: (dtos: ProductDTO[]) => dtos.map(productDtoToEntity),
+      providesTags: ["Products"],
+    }),
     getProductById: builder.query<Product, string>({
       query: id => `/products/${id}`,
       providesTags: (_result, _err, id) => [{ type: "Products", id }],
@@ -43,5 +51,9 @@ export const productApi = createApi({
   }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery, useLoginMutation } =
-  productApi;
+export const {
+  useGetProductsQuery,
+  useGetProductByIdQuery,
+  useLoginMutation,
+  useGetCartsQuery,
+} = productApi;
