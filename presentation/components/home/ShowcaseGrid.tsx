@@ -11,6 +11,7 @@ import APPLEVISIONLARGE from "@/public/assets/images/apple_vision.png";
 import MACBOOKSMALL from "@/public/assets/images/Macbook_sm.png";
 import MACBOOKLARGE from "@/public/assets/images/MacBook.png";
 import Button from "../common/Button";
+import Link from "next/link";
 
 const ShowcaseGrid = () => {
   const width = useScreenWidth();
@@ -194,11 +195,13 @@ const ShowcaseGrid = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}>
-            <Button
-              label="Shop Now"
-              variant="outline"
-              className="w-[70%] mt-10 border-gray-500 text-gray-500 hover:bg-black hover:text-white"
-            />
+            <Link href={"/products"}>
+              <Button
+                label="Shop Now"
+                variant="outline"
+                className="w-[70%] mt-10 border-gray-500 text-gray-500 hover:bg-black hover:text-white"
+              />
+            </Link>
           </motion.div>
         </motion.div>
       </div>

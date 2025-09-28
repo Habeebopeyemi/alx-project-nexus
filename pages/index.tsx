@@ -2,29 +2,58 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import HEROLAPTOP from "@/public/assets/images/Iphone_bg_laptop.png";
 import HEROMOBILE from "@/public/assets/images/Iphone_bg_phone.png";
-
 import { motion } from "framer-motion";
 import { useScreenWidth } from "@/presentation/hooks/useScreenWidth";
-import Button from "@/presentation/components/common/Button";
 import ShowcaseGrid from "@/presentation/components/home/ShowcaseGrid";
 import SummerSale from "@/presentation/components/home/SummerSale";
-import ProductMenu from "@/presentation/components/home/ProductMenu";
 import { GetServerSideProps } from "next";
-import { container } from "tsyringe";
-import { GetProductsUseCase } from "@/application/usecases/Product/GetProductsUseCase";
+import Button from "@/presentation/components/common/Button";
+import Link from "next/link";
+import { LoginResponse } from "@/domain/entities/Auth";
+
 // Server-side rendering to fetch products at request time
 // export const getServerSideProps: GetServerSideProps = async () => {
-//   const useCase = container.resolve(GetProductsUseCase);
-//   const products = await useCase.execute();
-
+//   // const useCase = container.resolve(GetProductsUseCase);
+//   // const products = await useCase.execute();
+//   const login = useLoginMutation();
+//   console.log(login);
 //   return {
-//     props: { products },
+//     props: {},
 //   };
 // };
 
-export default function Home() {
+export const getServerSideProps: GetServerSideProps = async () => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}${process.env.NEXT_PUBLIC_LOGIN}` as string,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: process.env.NEXT_PUBLIC_AUTH_USERNAME,
+        password: process.env.NEXT_PUBLIC_AUTH_PASSWORD,
+      }),
+    }
+  );
+
+  const data: LoginResponse = await res.json();
+  console.log(data);
+
+  return {
+    props: {
+      loginData: data,
+    },
+  };
+};
+
+export default function Home({ loginData }: { loginData: LoginResponse }) {
   const width = useScreenWidth();
   const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (loginData?.access) {
+      sessionStorage.setItem("auth-token", loginData.access);
+    }
+  }, [loginData]);
 
   useEffect(() => {
     setIsMobile(width < 768); // Example breakpoint for mobile
@@ -51,11 +80,13 @@ export default function Home() {
                   Created to change everything for the better. For everyone
                 </span>
               </h1>
-              <Button
-                label="Shop Now"
-                variant="outline"
-                className="mt-10 border-white text-white hover:bg-white hover:text-black"
-              />
+              <Link href={"/products"}>
+                <Button
+                  label="Shop Now"
+                  variant="outline"
+                  className="mt-10 border-white text-white hover:bg-white hover:text-black"
+                />
+              </Link>
             </motion.div>
 
             {/* Hero Image */}
@@ -79,10 +110,7 @@ export default function Home() {
         {/* left flex */}
         <ShowcaseGrid />
       </>
-      {/* Product menu */}
-      <>
-        <ProductMenu />
-      </>
+
       {/* Summer sale section */}
       <>
         <SummerSale />

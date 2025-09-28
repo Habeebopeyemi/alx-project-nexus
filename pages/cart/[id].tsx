@@ -4,65 +4,33 @@ import { useRouter } from "next/router";
 import CartCard from "@/presentation/components/cart/CartCard";
 import Button from "@/presentation/components/common/Button";
 import { motion, AnimatePresence } from "framer-motion";
-
-const IPHONE = "/assets/images/Iphone_14_pro_hash.png";
-const IPHONE_WHITE = "/assets/images/Iphone_14_pro_white.png";
+import { useGetCartsQuery } from "@/infrastructure/api/productApi";
 
 const Cart = () => {
   const router = useRouter();
-  const { id } = router.query; // userId to fetch respective cart
+  const { id } = router.query; // userId for checkout route
 
-  const [cartItems, setCartItems] = useState([
-    {
-      id: "1",
-      title: "Apple iPhone 14 Pro Max 128Gb Deep Purple",
-      sku: "#23446383278926",
-      price: 900,
-      quantity: 1,
-      image: IPHONE,
-    },
-    {
-      id: "2",
-      title: "Apple iPhone 14 Pro Max 128Gb White",
-      sku: "#23446383278926",
-      price: 1500,
-      quantity: 1,
-      image: IPHONE_WHITE,
-    },
-  ]);
+  const { data: cart, isLoading, isError } = useGetCartsQuery();
 
   const [discountCode, setDiscountCode] = useState("");
   const [bonusCard, setBonusCard] = useState("");
-  const [appliedDiscount, setAppliedDiscount] = useState(0); // percentage e.g. 10 = 10%
-  const [appliedBonus, setAppliedBonus] = useState(0); // fixed amount
+  const [appliedDiscount, setAppliedDiscount] = useState(0);
+  const [appliedBonus, setAppliedBonus] = useState(0);
 
-  // Handle item updates
-  const handleIncrease = (id: string) => {
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
-  };
-
-  const handleDecrease = (id: string) => {
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
-  };
-
-  const handleRemove = (id: string) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-  };
+  // Convert API results into items for display
+  const cartItems = cart?.results.map(item => ({
+    id: item.product,
+    title: item.product_name,
+    price: parseFloat(item.price),
+    quantity: item.quantity,
+    sku: item.product, // using product id as sku fallback
+    image: "/assets/images/Iphone_14_pro_hash.png", // TODO: update if API provides image
+  })) ?? [];
 
   // Discount + Bonus methods
   const applyDiscountCode = () => {
     if (discountCode.toLowerCase() === "summer10") {
-      setAppliedDiscount(10); // 10% discount
+      setAppliedDiscount(10);
     } else {
       setAppliedDiscount(0);
     }
@@ -70,7 +38,7 @@ const Cart = () => {
 
   const applyBonusCard = () => {
     if (bonusCard === "12345") {
-      setAppliedBonus(50); // flat $50 off
+      setAppliedBonus(50);
     } else {
       setAppliedBonus(0);
     }
@@ -78,14 +46,21 @@ const Cart = () => {
 
   // Calculations
   const subtotal = useMemo(
-    () => cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    () => cartItems?.reduce((sum, item) => sum + item.price * item.quantity, 0),
     [cartItems]
   );
   const discountAmount = (subtotal * appliedDiscount) / 100;
-  const tax = subtotal * 0.05; // 5% tax
+  const tax = subtotal * 0.05; // 5%
   const shipping = subtotal > 2000 ? 0 : 29;
   const total = subtotal - discountAmount - appliedBonus + tax + shipping;
+  
+  if (isLoading) {
+    return <p className="text-center">Loading cart items...</p>;
+  }
 
+  if (isError || !cart) {
+    return <p className="text-center text-red-500">Failed to load cart.</p>;
+  }
   return (
     <div className="mt-19 p-5">
       <div className="max-w-[1200px] mx-auto">
@@ -103,9 +78,9 @@ const Cart = () => {
                   transition={{ duration: 0.3 }}>
                   <CartCard
                     {...item}
-                    onIncrease={handleIncrease}
-                    onDecrease={handleDecrease}
-                    onRemove={handleRemove}
+                    onIncrease={() => {}} // TODO: hook to API mutation
+                    onDecrease={() => {}} // TODO: hook to API mutation
+                    onRemove={() => {}} // TODO: hook to API mutation
                   />
                 </motion.div>
               ))}

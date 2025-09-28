@@ -5,6 +5,7 @@ import { useScreenWidth } from "@/presentation/hooks/useScreenWidth";
 import SUMMERSALELARGE from "@/public/assets/images/banner_summer_sale_bg.jpg";
 import SUMMERSALESMALL from "@/public/assets/images/banner_summer_sale_sm.jpg";
 import Button from "../common/Button";
+import Link from "next/link";
 
 const SummerSale = () => {
   const width = useScreenWidth();
@@ -74,11 +75,13 @@ const SummerSale = () => {
               visible: { opacity: 1, scale: 1 },
             }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}>
-            <Button
-              label="Shop Now"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-black"
-            />
+            <Link href={"/products"}>
+              <Button
+                label="Shop Now"
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-black"
+              />
+            </Link>
           </motion.div>
         </motion.div>
       </div>

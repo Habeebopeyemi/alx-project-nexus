@@ -2,6 +2,10 @@ export type LoginCredentials = {
   email: string;
   password: string;
 };
+export interface LoginResponse {
+  refresh: string;
+  access: string;
+}
 
 export type SignupCredentials = {
   first_name: string;
