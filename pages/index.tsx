@@ -12,15 +12,41 @@ import ProductMenu from "@/presentation/components/home/ProductMenu";
 import { GetServerSideProps } from "next";
 import { container } from "tsyringe";
 import { GetProductsUseCase } from "@/application/usecases/Product/GetProductsUseCase";
+import { useLoginMutation } from "@/infrastructure/api/productApi";
+
 // Server-side rendering to fetch products at request time
 // export const getServerSideProps: GetServerSideProps = async () => {
-//   const useCase = container.resolve(GetProductsUseCase);
-//   const products = await useCase.execute();
-
+//   // const useCase = container.resolve(GetProductsUseCase);
+//   // const products = await useCase.execute();
+//   const login = useLoginMutation();
+//   console.log(login);
 //   return {
-//     props: { products },
+//     props: {},
 //   };
 // };
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}${process.env.NEXT_PUBLIC_LOGIN}` as string,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: process.env.NEXT_PUBLIC_AUTH_USERNAME,
+        password: process.env.NEXT_PUBLIC_AUTH_PASSWORD,
+      }),
+    }
+  );
+
+  const data = await res.json();
+  console.log(data);
+
+  return {
+    props: {
+      loginData: data,
+    },
+  };
+};
 
 export default function Home() {
   const width = useScreenWidth();
