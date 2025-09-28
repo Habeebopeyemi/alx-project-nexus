@@ -18,7 +18,15 @@ class MockProductRepo implements IProductRepository {
   async getProductById(id: string): Promise<Product> {
     // Return a mock product if the id matches, otherwise throw an error
     if (id === "1") {
-      return { id: "1", title: "Mock Product", price: 100 };
+      return {
+        id: "1",
+        title: "Mock Product",
+        price: 100,
+        sku: "SKU-001",
+        description: "Mock product description",
+        stock: 10,
+        in_stock: true
+      };
     }
     throw new Error("Product not found");
   }
@@ -32,7 +40,19 @@ class MockProductRepo implements IProductRepository {
     isLoading: boolean;
     error?: unknown;
   } {
-    throw new Error("Method not implemented.");
+    return {
+      data: {
+        id: "1",
+        title: "Mock Product",
+        price: 100,
+        sku: "SKU-001",
+        description: "Mock product description",
+        stock: 10,
+        in_stock: true
+      },
+      isLoading: false,
+      error: undefined
+    };
   }
 
   /**
@@ -40,7 +60,15 @@ class MockProductRepo implements IProductRepository {
    * @returns Promise<Product[]>
    */
   async getProducts(): Promise<Product[]> {
-    return [{ id: "1", title: "Mock Product", price: 100 }];
+    return [{
+      id: "1",
+      title: "Mock Product",
+      price: 100,
+      sku: "SKU-001",
+      description: "Mock product description",
+      stock: 10,
+      in_stock: true
+    }];
   }
 }
 
