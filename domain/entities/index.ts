@@ -114,3 +114,58 @@ export type ShippingScheduleOptionProps = {
   scheduleDate: Date | null;
   onDateChange: (date: Date | null) => void;
 };
+
+export type PaymentCardDetailsProps = {
+  defaultValues?: {
+    cardholder?: string;
+    cardNumber?: string;
+    expiry?: string;
+    cvv?: string;
+  };
+  showAddressOption?: boolean;
+  onSubmit?: (data: {
+    cardHolder: string;
+    cardNumber: string;
+    expiry: string;
+    cvv: string;
+    sameAsBilling: boolean;
+  }) => void;
+  isSubmitting?: boolean;
+};
+
+export type InputFieldProps = {
+  label: string;
+  name: string;
+  placeholder: string;
+  type?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
+};
+
+export type SummaryCardProps = {
+  image: string;
+  title: string;
+  price: number;
+  quantity?: number;
+};
+
+export type SummaryCardProduct = {
+  id: number;
+  image: string;
+  title: string;
+  price: number;
+  quantity?: number;
+};
+
+export type SummaryProps = {
+  products: SummaryCardProduct[];
+  address: string;
+  shippingMethod: string;
+  totals: {
+    subtotal: number;
+    tax: number;
+    shipping: number;
+    total: number;
+  };
+};

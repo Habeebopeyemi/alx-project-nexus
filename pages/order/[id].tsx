@@ -6,7 +6,7 @@ const Checkout = () => {
   const router = useRouter();
 
   return (
-    <div className="mt-18">
+    <div className="mt-18 lg:mt-25">
       <CheckoutSteps />
     </div>
   );

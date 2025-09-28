@@ -9,7 +9,7 @@ const Shipping = () => {
   const [scheduleDate, setScheduleDate] = useState<Date | null>(null);
 
   return (
-    <div>
+    <div className="md:mb-30">
       <h2 className="text-xl text-black font-bold mb-4">Shipping Method</h2>
       <div>
         <ShippingOption
