@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "export": "next export",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --passWithNoTests",
@@ -12,6 +13,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.24.0",
     "@fortawesome/fontawesome-svg-core": "^7.0.1",
     "@fortawesome/react-fontawesome": "^3.0.2",
     "@reduxjs/toolkit": "^2.8.2",

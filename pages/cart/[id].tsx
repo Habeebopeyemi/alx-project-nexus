@@ -18,14 +18,18 @@ const Cart = () => {
   const [appliedBonus, setAppliedBonus] = useState(0);
 
   // Convert API results into items for display
-  const cartItems = cart?.results.map(item => ({
-    id: item.product,
-    title: item.product_name,
-    price: parseFloat(item.price),
-    quantity: item.quantity,
-    sku: item.product, // using product id as sku fallback
-    image: "/assets/images/Iphone_14_pro_hash.png", // TODO: update if API provides image
-  })) ?? [];
+  const cartItems = useMemo(() => {
+    return (
+      cart?.results?.map(item => ({
+        id: item.product,
+        sku: item.product,
+        title: item.product_name,
+        price: parseFloat(item.price),
+        quantity: item.quantity,
+        image: "/assets/images/Iphone_14_pro_hash.png", // TODO: replace with real image
+      })) ?? []
+    );
+  }, [cart]);
 
   // Discount + Bonus methods
   const applyDiscountCode = () => {
@@ -53,9 +57,11 @@ const Cart = () => {
   const tax = subtotal * 0.05; // 5%
   const shipping = subtotal > 2000 ? 0 : 29;
   const total = subtotal - discountAmount - appliedBonus + tax + shipping;
-  
+
   if (isLoading) {
-    return <p className="text-center">Loading cart items...</p>;
+    return (
+      <p className="text-center text-black mt-30">Loading cart items...</p>
+    );
   }
 
   if (isError || !cart) {

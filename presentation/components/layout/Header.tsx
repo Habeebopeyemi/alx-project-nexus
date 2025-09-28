@@ -8,6 +8,7 @@ import USER from "@/public/assets/images/svgs/User.svg";
 import { useScreenWidth } from "@/presentation/hooks/useScreenWidth";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   const width = useScreenWidth();
@@ -26,9 +27,9 @@ const Header: React.FC = () => {
       <nav className="md:w-[90%] md:flex items-center mx-auto max-w-[1200px] rounded-md">
         {/* Logo + Hamburger */}
         <div className="w-full flex justify-between p-4 lg:basis-[15%] lg:justify-center rounded-md">
-          <div>
-            <Image src={LOGO} alt="LOGO" priority />
-          </div>
+          <Link href={"/"}>
+            <Image src={LOGO} alt="LOGO" className="cursor-pointer" priority />
+          </Link>
           <button
             onClick={() => setOpen(prev => !prev)}
             className="lg:hidden"
@@ -63,26 +64,37 @@ const Header: React.FC = () => {
 
               {/* Links */}
               <ul className="w-full max-w-[60%] mx-auto flex justify-between lg:basis-[40%] p-2 text-gray-500 rounded-md my-4">
-                {["Home", "About", "Contact Us", "Blog"].map(item => (
+                {[
+                  { label: "Home", href: "/" },
+                  { label: "About", href: "/" },
+                  { label: "Contact Us", href: "/" },
+                  { label: "Blog", href: "/blog" },
+                ].map(({ label, href }) => (
                   <motion.li
-                    key={item}
+                    key={label}
                     whileHover={{ scale: 1.1, color: "#000" }}
                     whileTap={{ scale: 0.95 }}
                     className="cursor-pointer">
-                    {item}
+                    <Link href={href}>{label}</Link>
                   </motion.li>
                 ))}
               </ul>
 
               {/* Icons */}
               <ul className="max-w-[50%] mx-auto flex items-center justify-center gap-3 lg:basis-[20%] py-2 rounded-md my-4">
-                {[FAV, CART, USER].map((icon, idx) => (
+                {[
+                  { icon: FAV, href: "/", alt: "favorites" },
+                  { icon: CART, href: "/cart/1", alt: "cart" },
+                  { icon: USER, href: "/", alt: "user" },
+                ].map(({ icon, href, alt }, idx) => (
                   <motion.li
                     key={idx}
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                     className="basis-[20%] cursor-pointer">
-                    <Image src={icon} alt="icon" width={25} />
+                    <Link href={href}>
+                      <Image src={icon} alt={alt} width={25} />
+                    </Link>
                   </motion.li>
                 ))}
               </ul>

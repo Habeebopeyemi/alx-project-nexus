@@ -28,7 +28,9 @@ export default async function handler(
   try {
     data = await apiRes.json();
   } catch (err) {
-    return res.status(500).json({ error: "Failed to parse backend response" });
+    return res
+      .status(500)
+      .json({ error: "Failed to parse backend response" + err });
   }
 
   res.status(apiRes.status).json(data);

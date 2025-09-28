@@ -152,7 +152,35 @@ And separately:
 - If API returns verbose/nested fields → keep `data/mappers` to transform into clean domain models.
 
 ---
+## ⚠️ Limitations
 
+- **Authentication Flow Missing**:  
+  Based on the Figma design used for this project, no authentication flow was captured. As such, the current implementation does not include login or sign-up screens.  
+  However, under the hood, SSR requests authentication credentials to communicate with the backend (required for fetching products and cart data).
+
+- **No Product Images in API**:  
+  The API powering the application does not provide product images. To compensate, static images are currently served instead of dynamically fetched ones.
+
+---
+
+## 💡 Recommendations
+
+- **Introduce Authentication Pages**:  
+  To evolve the project into a fully enterprise-ready application, authentication (login/sign-up) flows should be implemented.
+
+- **Dynamic Product Images via Cloudinary**:  
+  Product images should be stored in Cloudinary. When creating a product at the API level, the Cloudinary image ID can be used as a slug for retrieval and display.
+
+---
+
+## ✅ Summary
+
+- **Use Cases**: Reusable across SSR, UI, and background.
+- **Repositories**: Bridge domain to RTK Query (data access).
+- **RTK Query**: Provides caching, invalidation, and store updates.
+- **DI Container**: Wires everything together.
+
+This architecture ensures the e-commerce project stays **scalable, testable, and framework-agnostic** while still enjoying Next.js + RTK Query performance benefits.
 ## ✅ Summary
 
 - **Use Cases**: Reusable across SSR, UI, and background.
